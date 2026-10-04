@@ -1,6 +1,7 @@
-GET http://localhost:8080/usuarios/602
+GET http://localhost:8080/habitos
 Content-Type: application/json
-Authorization: Bearer SEU_TOKEN_AQUI
+
+
 {
 
 }

@@ -3,7 +3,6 @@ package com.ylima.gerenciamentohabitos.security;
 import com.ylima.gerenciamentohabitos.entity.Usuario;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jws;
-import io.jsonwebtoken.Jwt;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
