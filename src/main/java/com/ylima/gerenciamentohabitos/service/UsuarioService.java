@@ -7,11 +7,10 @@ import com.ylima.gerenciamentohabitos.exception.EmailRepetidoException;
 import com.ylima.gerenciamentohabitos.exception.RecursoNaoEncontradoException;
 import com.ylima.gerenciamentohabitos.repository.UsuarioRepository;
 import com.ylima.gerenciamentohabitos.security.JwtService;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-
 import java.util.Optional;
 
 @Service
@@ -42,26 +41,39 @@ public class UsuarioService {
         }
     }
     public UsuarioResponseDTO buscarUsuario(Long id){
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        Long usuarioId = (Long) auth.getPrincipal();
+
         Optional<Usuario> usuario = usuarioRepository.findById(id);
+
         if(!usuario.isPresent()){
             throw new RecursoNaoEncontradoException("Esse usuário não existe ou não foi encontrado!");
         }
-        return converterPraResponseDTO(usuario.get());
-    }
 
-    public Page<UsuarioResponseDTO> buscarTodosUsuario(Pageable pageable){
-        Page<Usuario> usuarios = usuarioRepository.findAll(pageable);
-        return usuarios.map(usuario -> converterPraResponseDTO(usuario));
+        Usuario usuarioEncontrado = usuario.get();
+        if(!usuarioId.equals(usuarioEncontrado.getId())){
+            throw new RecursoNaoEncontradoException("Esse usuário não existe ou não foi encontrado!");
+        }
+
+        return converterPraResponseDTO(usuarioEncontrado);
     }
     
     public UsuarioResponseDTO atualizarUsuario(Long id, UsuarioUpdateDTO usuarioUpdateDTO){
 
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        Long usuarioId = (Long) auth.getPrincipal();
+
         Optional<Usuario> usuarioEncontrado = usuarioRepository.findById(id);
+
         if(!usuarioEncontrado.isPresent()){
             throw new RecursoNaoEncontradoException("Esse usuário não existe ou não foi encontrado!");
         }
-        Optional<Usuario> usuario = usuarioRepository.findByEmail(usuarioUpdateDTO.getEmail());
 
+        if(!usuarioId.equals(usuarioEncontrado.get().getId())){
+            throw new RecursoNaoEncontradoException("Esse usuário não existe ou não foi encontrado!");
+        }
+
+        Optional<Usuario> usuario = usuarioRepository.findByEmail(usuarioUpdateDTO.getEmail());
 
         if(!usuario.isPresent()){
 
@@ -79,9 +91,22 @@ public class UsuarioService {
     }
 
     public void deletarUsuario(Long id){
-        if(!usuarioRepository.findById(id).isPresent()){
+
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        Long usuarioId = (Long) auth.getPrincipal();
+
+       Optional<Usuario> usuario = usuarioRepository.findById(id);
+
+        if(!usuario.isPresent()){
             throw new RecursoNaoEncontradoException("Esse usuário não existe ou não foi encontrado!");
         }
+
+        Usuario usuarioEncontrado = usuario.get();
+
+        if(!usuarioId.equals(usuarioEncontrado.getId())){
+            throw new RecursoNaoEncontradoException("Esse usuário não existe ou não foi encontrado!");
+        }
+
         usuarioRepository.deleteById(id);
     }
 

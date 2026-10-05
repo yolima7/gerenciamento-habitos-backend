@@ -187,10 +187,10 @@ Em desenvolvimento.
 * [x] Ordenação de hábitos
 * [x] Filtro de hábitos por período
 * [x] Tratamento global de exceções
+* [x] Restringir operações de usuários ao próprio usuário autenticado
 
 ### Próximos passos
 
-* [ ] Restringir operações de usuários ao próprio usuário autenticado
 * [ ] Remover redundâncias de código
 * [ ] Padronizar o uso de DTOs por segurança
 * [ ] Melhorar o tratamento de tokens inválidos ou expirados

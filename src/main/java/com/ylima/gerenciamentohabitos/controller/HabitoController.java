@@ -26,15 +26,15 @@ public class HabitoController {
    @PostMapping
     public ResponseEntity<HabitoResponseDTO> save(@Valid @RequestBody HabitoRequestDTO habitoRequestDTO){
 
-       System.out.println("CHEGOU NO POST HABITOS");
-
        HabitoResponseDTO habitoCriado = habitoService.criarHabito(habitoRequestDTO);
        return ResponseEntity.status(HttpStatus.CREATED).body(habitoCriado);
        }
+
        @GetMapping("/{id}")
         public HabitoResponseDTO buscar(@PathVariable Long id){
         return habitoService.buscarHabito(id);
        }
+
        @PutMapping("/{id}")
         public HabitoResponseDTO atualizarHabito(@PathVariable Long id, @Valid @RequestBody HabitoUpdateDTO habitoUpdateDTO){
             return habitoService.atualizarHabito(id, habitoUpdateDTO);

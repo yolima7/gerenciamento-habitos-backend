@@ -30,12 +30,6 @@ public class UsuarioController {
         return ResponseEntity.status(HttpStatus.OK).body(usuarioService.buscarUsuario(id));
     }
 
-    @GetMapping
-    public Page<UsuarioResponseDTO> listarUsuarios(Pageable pageable) {
-        return usuarioService.buscarTodosUsuario(pageable);
-
-    }
-
     @PutMapping("/{id}")
     public ResponseEntity<UsuarioResponseDTO> atualizar(@PathVariable Long id, @Valid @RequestBody UsuarioUpdateDTO usuarioUpdateDTO) {
         return ResponseEntity.status(HttpStatus.OK).body(usuarioService.atualizarUsuario(id, usuarioUpdateDTO));

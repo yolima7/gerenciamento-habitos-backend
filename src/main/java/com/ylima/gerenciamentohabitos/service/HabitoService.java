@@ -128,14 +128,6 @@ public class HabitoService {
             );
         }
 
-
-        public Page<HabitoResponseDTO> listarHabitosPorPeriodo (Periodo periodo, Pageable pageable){
-            Page<Habito> habitos = habitoRepository.findByPeriodo(periodo, pageable);
-            return habitos.map(habito -> converterParaResponseDTO(habito)
-
-            );
-        }
-
         private HabitoResponseDTO converterParaResponseDTO (Habito habito){
             HabitoResponseDTO responseDTO = new HabitoResponseDTO();
             responseDTO.setId(habito.getId());
