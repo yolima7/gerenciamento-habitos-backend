@@ -116,8 +116,7 @@ O usuário autenticado é identificado através do token JWT.
 | Método | Rota              | Descrição                                              |
 | ------ | ----------------- | ------------------------------------------------------ |
 | POST   | `/usuarios`       | Cria um usuário                                        |
-| POST   | `/usuarios/login` | Realiza login com email e senha e retorna um token JWT |
-| GET    | `/usuarios`       | Lista os usuários                                      |
+| POST   | `/usuarios/login` | Realiza login com email e senha e retorna um token JWT | |
 | GET    | `/usuarios/{id}`  | Busca um usuário pelo ID                               |
 | PUT    | `/usuarios/{id}`  | Atualiza os dados de um usuário                        |
 | DELETE | `/usuarios/{id}`  | Remove um usuário                                      |
@@ -191,7 +190,6 @@ Em desenvolvimento.
 * [x] Melhorar o tratamento de tokens inválidos ou expirados
 
 ### Próximos passos
-
 * [ ] Remover redundâncias de código
 * [ ] Padronizar o uso de DTOs por segurança
 * [ ] Finalizar a integração com o front-end
