@@ -12,8 +12,6 @@ public interface HabitoRepository extends JpaRepository<Habito, Long> {
 
     Page<Habito> findByUsuario_IdAndPeriodo(Long id, Periodo periodo, Pageable pageable);
 
-    Page<Habito> findByPeriodo(Periodo periodo, Pageable pageable);
-
     Page<Habito> findAll(Pageable pageable);
 
 

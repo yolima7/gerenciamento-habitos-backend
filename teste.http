@@ -1,4 +1,4 @@
-GET http://localhost:8080/usuarios/552
+GET http://localhost:8080/habitos?sort=titulo,desc
 Content-Type: application/json
 Authorization: Bearer SEU_TOKEN
 

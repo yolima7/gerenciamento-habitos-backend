@@ -188,13 +188,12 @@ Em desenvolvimento.
 * [x] Filtro de hábitos por período
 * [x] Tratamento global de exceções
 * [x] Restringir operações de usuários ao próprio usuário autenticado
+* [x] Melhorar o tratamento de tokens inválidos ou expirados
 
 ### Próximos passos
 
 * [ ] Remover redundâncias de código
 * [ ] Padronizar o uso de DTOs por segurança
-* [ ] Melhorar o tratamento de tokens inválidos ou expirados
-* [ ] Calcular o percentual de progresso de cada hábito
 * [ ] Finalizar a integração com o front-end
 
 ## Front-end

@@ -22,7 +22,7 @@ public class JwtService {
         return Jwts.builder()
                 .subject(usuario.getId().toString())
                 .issuedAt(new Date())
-                .expiration(new Date(System.currentTimeMillis()+1000 * 60 * 60))
+                .expiration(new Date(System.currentTimeMillis() + 1000 * 60 * 60))
                 .signWith(getSecretKey())
                 .compact();
     }

@@ -48,16 +48,13 @@ public class HabitoController {
 
        @GetMapping
     public Page<HabitoResponseDTO> listarPorUsuario(@RequestParam (required = false)Periodo periodo, Pageable pageable){
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-       Long usuarioId = (Long) auth.getPrincipal();
         if(periodo == null){
-          return habitoService.listarHabitosPorUsuario(usuarioId,  pageable);
-        }else {
-           return habitoService.listarHabitosPorUsuarioEPeriodo(usuarioId,periodo,pageable);
-        }
+          return habitoService.listarHabitosPorUsuario(pageable);
+        }else{
+           return habitoService.listarHabitosPorUsuarioEPeriodo(periodo,pageable);
+         }
 
        }
-
 
    }
 

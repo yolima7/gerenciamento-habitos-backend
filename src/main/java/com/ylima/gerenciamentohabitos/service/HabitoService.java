@@ -106,23 +106,32 @@ public class HabitoService {
 
         }
 
-        public Page<HabitoResponseDTO> listarHabitosPorUsuario (Long id, Pageable pageable){
-            Optional<Usuario> usuario = usuarioRepository.findById(id);
+        public Page<HabitoResponseDTO> listarHabitosPorUsuario (Pageable pageable){
+            Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+            Long usuarioId = (Long) auth.getPrincipal();
+
+            Optional<Usuario> usuario = usuarioRepository.findById(usuarioId);
+
             if (!usuario.isPresent()) {
                 throw new RecursoNaoEncontradoException("Esse usuário não existe ou não foi encontrado!");
             }
-            Page<Habito> habitos = habitoRepository.findByUsuario_Id(id, pageable);
+
+            Page<Habito> habitos = habitoRepository.findByUsuario_Id(usuarioId, pageable);
             return habitos.map(habito -> converterParaResponseDTO(habito)
 
             );
         }
 
-        public Page<HabitoResponseDTO> listarHabitosPorUsuarioEPeriodo (Long id, Periodo periodo, Pageable pageable){
-            Optional<Usuario> usuario = usuarioRepository.findById(id);
+        public Page<HabitoResponseDTO> listarHabitosPorUsuarioEPeriodo (Periodo periodo, Pageable pageable){
+
+            Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+            Long usuarioId = (Long) auth.getPrincipal();
+
+            Optional<Usuario> usuario = usuarioRepository.findById(usuarioId);
             if (!usuario.isPresent()) {
                 throw new RecursoNaoEncontradoException("Esse usuário não existe ou não foi encontrado!");
             }
-            Page<Habito> habitos = habitoRepository.findByUsuario_IdAndPeriodo(id, periodo, pageable);
+            Page<Habito> habitos = habitoRepository.findByUsuario_IdAndPeriodo(usuarioId, periodo, pageable);
             return habitos.map(habito -> converterParaResponseDTO(habito)
 
             );
