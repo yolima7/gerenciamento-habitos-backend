@@ -116,14 +116,13 @@ O usuário autenticado é identificado através do token JWT.
 | Método | Rota              | Descrição                                              |
 | ------ | ----------------- | ------------------------------------------------------ |
 | POST   | `/usuarios`       | Cria um usuário                                        |
-| POST   | `/usuarios/login` | Realiza login com email e senha e retorna um token JWT | |
+| POST   | `/usuarios/login` | Realiza login com email e senha e retorna um token JWT | 
 | GET    | `/usuarios/{id}`  | Busca um usuário pelo ID                               |
 | PUT    | `/usuarios/{id}`  | Atualiza os dados de um usuário                        |
+| PATCH  | `/usuarios/{id}`  | Atualiza parcialmente o nome e/ou o e-mail             |
 | DELETE | `/usuarios/{id}`  | Remove um usuário                                      |
 
 O cadastro e o login são públicos. Os demais endpoints exigem autenticação.
-
-> A autorização para restringir completamente as operações de usuários ao próprio usuário autenticado ainda está em desenvolvimento.
 
 ### Hábitos
 
@@ -133,6 +132,7 @@ O cadastro e o login são públicos. Os demais endpoints exigem autenticação.
 | GET    | `/habitos`      | Lista os hábitos do usuário autenticado, com paginação, ordenação e filtro por período |
 | GET    | `/habitos/{id}` | Busca um hábito do usuário autenticado pelo ID                                         |
 | PUT    | `/habitos/{id}` | Atualiza um hábito do usuário autenticado                                              |
+| PATCH  | `/habitos/{id}` | Atualiza um dado do hábito por vez                                                     |
 | DELETE | `/habitos/{id}` | Remove um hábito do usuário autenticado                                                |
 
 As operações de hábitos são protegidas por autenticação e autorização. Um usuário só pode acessar, alterar ou excluir seus próprios hábitos.
@@ -188,10 +188,11 @@ Em desenvolvimento.
 * [x] Tratamento global de exceções
 * [x] Restringir operações de usuários ao próprio usuário autenticado
 * [x] Melhorar o tratamento de tokens inválidos ou expirados
+* [x] Adicionar endpoint PATCH em usuários e hábitos
+* [x] Remover redundâncias de código
+* [x] Padronizar o uso de DTOs por segurança
 
 ### Próximos passos
-* [ ] Remover redundâncias de código
-* [ ] Padronizar o uso de DTOs por segurança
 * [ ] Finalizar a integração com o front-end
 
 ## Front-end

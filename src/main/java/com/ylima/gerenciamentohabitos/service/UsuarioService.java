@@ -90,6 +90,43 @@ public class UsuarioService {
 
     }
 
+    public UsuarioResponseDTO atualizarAtributoUsuario(Long id, UsuarioPatchDTO usuarioPatchDTO) {
+        Optional<Usuario> usuario = usuarioRepository.findById(id);
+        if (!usuario.isPresent()) {
+            throw new RecursoNaoEncontradoException("Esse usuário não existe ou não foi encontrado!");
+        }
+
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        Long usuarioId = (Long) auth.getPrincipal();
+
+        Usuario usuarioEncontrado = usuario.get();
+
+        if (!usuarioId.equals(usuarioEncontrado.getId())) {
+            throw new RecursoNaoEncontradoException("Esse usuário não existe ou não foi encontrado");
+        }
+
+        Usuario usuarioAtualizado = usuario.get();
+
+        if (usuarioPatchDTO.getNome() != null) {
+            usuarioAtualizado.setNome(usuarioPatchDTO.getNome());
+        }
+
+       if(usuarioPatchDTO.getEmail() != null){
+           Optional<Usuario> usuarioEmail = usuarioRepository.findByEmail(usuarioPatchDTO.getEmail());
+
+           if(usuarioEmail.isPresent()){
+               if(!usuarioEmail.get().getId().equals(usuarioEncontrado.getId())){
+                    throw new EmailRepetidoException("Esse email ja existe, escolha outro!");
+               }
+           }
+           usuarioAtualizado.setEmail(usuarioPatchDTO.getEmail());
+       }
+       usuarioRepository.save(usuarioAtualizado);
+       return converterPraResponseDTO(usuarioAtualizado);
+
+
+    }
+
     public void deletarUsuario(Long id){
 
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();

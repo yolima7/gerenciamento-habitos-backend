@@ -1,6 +1,7 @@
 package com.ylima.gerenciamentohabitos.controller;
 
 
+import com.ylima.gerenciamentohabitos.dto.HabitoPatchDTO;
 import com.ylima.gerenciamentohabitos.dto.HabitoRequestDTO;
 import com.ylima.gerenciamentohabitos.dto.HabitoResponseDTO;
 import com.ylima.gerenciamentohabitos.dto.HabitoUpdateDTO;
@@ -54,6 +55,11 @@ public class HabitoController {
            return habitoService.listarHabitosPorUsuarioEPeriodo(periodo,pageable);
          }
 
+       }
+
+       @PatchMapping("/{id}")
+        public HabitoResponseDTO atualizarAtributo (@PathVariable Long id, @Valid @RequestBody HabitoPatchDTO habitoPatchDTO){
+        return habitoService.atualizarAtributoHabito(id, habitoPatchDTO);
        }
 
    }

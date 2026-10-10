@@ -36,6 +36,13 @@ public class UsuarioController {
 
     }
 
+    @PatchMapping("/{id}")
+        public ResponseEntity<UsuarioResponseDTO> atualizarAtributos(@PathVariable Long id, @Valid @RequestBody UsuarioPatchDTO usuarioPatchDTO){
+        return ResponseEntity.status(HttpStatus.OK).body(usuarioService.atualizarAtributoUsuario(id, usuarioPatchDTO));
+
+    }
+
+
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deletar(@PathVariable Long id) {
         usuarioService.deletarUsuario(id);
