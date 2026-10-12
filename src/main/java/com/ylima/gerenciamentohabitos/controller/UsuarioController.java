@@ -42,6 +42,11 @@ public class UsuarioController {
 
     }
 
+    @PatchMapping("/{id}/senha")
+    public ResponseEntity<UsuarioResponseDTO> atualizarSenha(@PathVariable Long id, @Valid @RequestBody UsuarioSenhaDTO usuarioSenhaDTO){
+    return ResponseEntity.status(HttpStatus.OK).body(usuarioService.atualizarSenha(id, usuarioSenhaDTO));
+    }
+
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deletar(@PathVariable Long id) {

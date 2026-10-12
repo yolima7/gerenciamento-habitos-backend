@@ -123,6 +123,32 @@ public class UsuarioService {
        }
        usuarioRepository.save(usuarioAtualizado);
        return converterPraResponseDTO(usuarioAtualizado);
+    }
+
+    public UsuarioResponseDTO atualizarSenha(Long id, UsuarioSenhaDTO usuarioSenhaDTO) {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        Long usuarioId = (Long) auth.getPrincipal();
+
+        Optional<Usuario> usuario = usuarioRepository.findById(id);
+
+        if(!usuario.isPresent()){
+            throw new RecursoNaoEncontradoException("Esse usuário não existe ou não foi encontrado!");
+        }
+
+        Usuario usuarioEncontrado = usuario.get();
+
+        if(!usuarioId.equals(usuarioEncontrado.getId())){
+            throw new RecursoNaoEncontradoException("Esse usuário não existe ou não foi encontrado");
+        }
+
+        if(!passwordEncoder.matches(usuarioSenhaDTO.getSenhaAtual(), usuarioEncontrado.getSenha())){
+            throw new CredInvalidasException("A senha não está correta, tente novamente!");
+        }
+
+        String senhaHash = passwordEncoder.encode(usuarioSenhaDTO.getNovaSenha());
+        usuarioEncontrado.setSenha(senhaHash);
+        usuarioRepository.save(usuarioEncontrado);
+        return converterPraResponseDTO(usuarioEncontrado);
 
 
     }
