@@ -1,7 +1,8 @@
-POST http://localhost:8080/usuarios/login
+POST http://localhost:8080/usuarios
 Content-Type: application/json
 
 {
+
 
 }
 

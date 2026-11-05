@@ -8,7 +8,6 @@ public class HabitoResponseDTO {
     private String unidade;
     private int quantidade;
     private Periodo periodo;
-    private Long usuarioId;
 
     public Long getId() {
         return id;
@@ -56,13 +55,6 @@ public class HabitoResponseDTO {
 
     public void setPeriodo(Periodo periodo) {
         this.periodo = periodo;
-    }
-
-    public Long getUsuarioId() {
-        return usuarioId;
-    }
-    public void setUsuarioId(Long usuarioId) {
-        this.usuarioId = usuarioId;
     }
 
 

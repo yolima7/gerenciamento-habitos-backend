@@ -25,7 +25,7 @@ public class UsuarioService {
     }
     public UsuarioResponseDTO criarUsuario(UsuarioRequestDTO usuarioRequestDTO){
         if(usuarioRepository.findByEmail(usuarioRequestDTO.getEmail()).isPresent()){
-            throw new EmailRepetidoException("Email ja existente, crie outro!");
+            throw new EmailRepetidoException("Email inválido, tente novamente!");
         }else{
             Usuario usuario = new Usuario();
             usuario.setEmail(usuarioRequestDTO.getEmail());
@@ -80,7 +80,7 @@ public class UsuarioService {
        } else if (usuario.get().getId().equals(id)) {
 
        }else{
-            throw new EmailRepetidoException("Esse email ja existe, escolha outro!");
+            throw new EmailRepetidoException("Email inválido, tente novamente!");
        }
       usuarioEncontrado.get().setNome(usuarioUpdateDTO.getNome());
         usuarioEncontrado.get().setEmail(usuarioUpdateDTO.getEmail());
@@ -116,7 +116,7 @@ public class UsuarioService {
 
            if(usuarioEmail.isPresent()){
                if(!usuarioEmail.get().getId().equals(usuarioEncontrado.getId())){
-                    throw new EmailRepetidoException("Esse email ja existe, escolha outro!");
+                    throw new EmailRepetidoException("Email inválido, tente novamente!");
                }
            }
            usuarioAtualizado.setEmail(usuarioPatchDTO.getEmail());
@@ -142,7 +142,7 @@ public class UsuarioService {
         }
 
         if(!passwordEncoder.matches(usuarioSenhaDTO.getSenhaAtual(), usuarioEncontrado.getSenha())){
-            throw new CredInvalidasException("A senha não está correta, tente novamente!");
+            throw new CredInvalidasException("Senha inválida, tente novamente!");
         }
 
         String senhaHash = passwordEncoder.encode(usuarioSenhaDTO.getNovaSenha());

@@ -9,14 +9,11 @@ import com.ylima.gerenciamentohabitos.entity.Usuario;
 import com.ylima.gerenciamentohabitos.exception.RecursoNaoEncontradoException;
 import com.ylima.gerenciamentohabitos.repository.HabitoRepository;
 import com.ylima.gerenciamentohabitos.repository.UsuarioRepository;
-import org.springframework.core.MethodParameter;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.MethodArgumentNotValidException;
-
 import java.util.Optional;
 
 @Service
@@ -132,10 +129,6 @@ public class HabitoService {
                 habitoAtualizado.setQuantidade(habitoPatchDTO.getQuantidade());
                 }
 
-
-
-
-
             if(habitoPatchDTO.getPeriodo() != null){
                 habitoAtualizado.setPeriodo(habitoPatchDTO.getPeriodo());
             }
@@ -200,7 +193,6 @@ public class HabitoService {
             responseDTO.setUnidade(habito.getUnidade());
             responseDTO.setQuantidade(habito.getQuantidade());
             responseDTO.setPeriodo(habito.getPeriodo());
-            responseDTO.setUsuarioId(habito.getUsuario().getId());
 
             return responseDTO;
         }

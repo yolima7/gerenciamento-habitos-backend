@@ -1,5 +1,6 @@
 package com.ylima.gerenciamentohabitos.security;
 
+import io.jsonwebtoken.JwtException;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -13,24 +14,40 @@ import java.io.IOException;
 
 @Component
 public class JwtAuthenticationFilter extends OncePerRequestFilter {
+
     private final JwtService jwtService;
+
     public JwtAuthenticationFilter(JwtService jwtService) {
         this.jwtService = jwtService;
     }
+
     @Override
     protected void doFilterInternal(
             HttpServletRequest request,
             HttpServletResponse response,
             FilterChain filterChain
-    ) throws ServletException, IOException{
+    ) throws ServletException, IOException {
+
         String authHeader = request.getHeader("Authorization");
-        if(authHeader != null && authHeader.startsWith("Bearer ")){
-                String token = authHeader.substring(7);
+
+        if (authHeader != null && authHeader.startsWith("Bearer ")) {
+            String token = authHeader.substring(7);
+
+            try {
                 Long usuarioId = jwtService.extrairUsuarioId(token);
-                Authentication authentication = new UsernamePasswordAuthenticationToken(usuarioId, null, null);
+
+                Authentication authentication =
+                        new UsernamePasswordAuthenticationToken(usuarioId, null, null);
 
                 SecurityContextHolder.getContext().setAuthentication(authentication);
+
+            } catch (JwtException | IllegalArgumentException e) {
+                SecurityContextHolder.clearContext();
+                response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Token inválido ou expirado.");
+                return;
+            }
         }
+
         filterChain.doFilter(request, response);
     }
 }

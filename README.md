@@ -29,6 +29,8 @@ Os hábitos são vinculados ao usuário autenticado, portanto o usuário não pr
 * Bean Validation
 * PostgreSQL
 * Maven
+* JUnit
+* Mockito
 
 ## Como rodar
 
@@ -166,6 +168,21 @@ Também é possível combinar os parâmetros:
 GET /habitos?page=0&size=10&sort=titulo,asc&periodo=DIARIO
 ```
 
+## Testes Automatizados
+O projeto possui testes unitários desenvolvidos com JUnit e Mockito, com o objetivo de verificar o comportamento dos serviços e garantir o funcionamento das principais regras de negócio.
+
+Foram testados cenários de sucesso e falha, incluindo:
+
+Cadastro e autenticação de usuários.
+
+Validação de credenciais e e-mails duplicados.
+
+Atualização de dados e senhas.
+
+Controle de acesso e propriedade dos recursos.
+
+Criação, atualização e exclusão de hábitos.
+
 ## Status do projeto
 
 Em desenvolvimento.
@@ -200,4 +217,4 @@ Em desenvolvimento.
 
 O projeto também terá um front-end desenvolvido em React com TypeScript, ainda em desenvolvimento.
 
-Como meu foco principal é o back-end, o front-end está sendo desenvolvido com apoio de IA.
+Como meu foco principal é o back-end, o front-end está sendo desenvolvido com ajuda de IA.
